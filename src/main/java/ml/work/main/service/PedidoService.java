@@ -30,9 +30,11 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			temp.setTotal(pedido.getTotal());
 			temp.setFecha(pedido.getFecha());
 			temp.setHora(pedido.getHora());
-			temp.setNombre_comprobante(pedido.getNombre_comprobante());
-			temp.setDetallePedido(pedido.getDetallePedido());
 			temp.setFechaAnulado(pedido.getFechaAnulado());
+			temp.setObservaciones(pedido.getObservaciones());
+			temp.setCliente(pedido.getCliente());
+			temp.setEstadoListo(pedido.isEstadoListo());
+			temp.setNombreTemporal(pedido.getNombreTemporal());
 
 			result.add(temp);
 		}
@@ -55,8 +57,11 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			result.setTotal(resultBD.getTotal());
 			result.setFecha(resultBD.getFecha());
 			result.setHora(resultBD.getHora());
-			result.setNombre_comprobante(resultBD.getNombre_comprobante());
 			result.setFechaAnulado(resultBD.getFechaAnulado());
+			result.setObservaciones(resultBD.getObservaciones());
+			result.setCliente(resultBD.getCliente());
+			result.setEstadoListo(resultBD.isEstadoListo());
+			result.setNombreTemporal(resultBD.getNombreTemporal());
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -71,10 +76,12 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 
 		guardado.setFecha(body.getFecha());
 		guardado.setHora(body.getHora());
-		guardado.setNombre_comprobante(body.getNombre_comprobante());
 		guardado.setTotal(body.getTotal());
-		guardado.setDetallePedido(body.getDetallePedido());
 		guardado.setFechaAnulado(body.getFechaAnulado());
+		guardado.setObservaciones(body.getObservaciones());
+		guardado.setCliente(body.getCliente());
+		guardado.setNombreTemporal(body.getNombreTemporal());
+		guardado.setEstadoListo(body.isEstadoListo());
 
 		try {
 			pedidoRepository.save(guardado);
@@ -94,12 +101,14 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 		try {
 			temp = pOptional.get();
 
-			temp.setDetallePedido(t.getDetallePedido());
 			temp.setFecha(t.getFecha());
 			temp.setHora(t.getHora());
-			temp.setNombre_comprobante(t.getNombre_comprobante());
 			temp.setTotal(t.getTotal());
 			temp.setFechaAnulado(t.getFechaAnulado());
+			temp.setObservaciones(t.getObservaciones());
+			temp.setCliente(t.getCliente());
+			temp.setNombreTemporal(t.getNombreTemporal());
+			temp.setEstadoListo(t.isEstadoListo());
 		
 			pedidoRepository.save(temp);
 			t.setNumPedido(temp.getNumPedido());

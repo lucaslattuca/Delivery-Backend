@@ -29,24 +29,117 @@ public class ArticuloService implements ObjectService<ArticuloDTO> {
 			temp.setId_articulo(articulo.getId_articulo());
 			temp.setNombre_articulo(articulo.getNombre_articulo());
 			temp.setCosto(articulo.getCosto());
-			temp.setEsParaVenta(articulo.isEsParaVenta());
+			temp.setEsPrima(articulo.isEsPrima());
 			temp.setStock(articulo.getStock());
 			temp.setCategoriaProd(articulo.getCategoriaProd());
 			temp.setMedidaProd(articulo.getMedidaProd());
-			temp.setDetFactura(articulo.getDetFactura());
-			temp.setDetReceta(articulo.getDetReceta());
 			temp.setStockMinimo(articulo.getStockMinimo());
 			temp.setEnLista(articulo.isEnLista());
 			temp.setDetalle(articulo.getDetalle());
 			temp.setFoto(articulo.getFoto());
-			temp.setPrecioArticulo(articulo.getPrecioArticulo());
-
+			temp.setPrecioA(articulo.getPrecioA());
+			
 			result.add(temp);
 		}
 
 		return result;
 
 	}
+	
+	//Método para buscar artículos que están activos en la lista de stock o los anulados
+	//Si "buscar" es true, entonces se traerá los artículos que están activos en lista
+	public ArrayList<ArticuloDTO> getInsumoEnLista(boolean buscar) {
+
+		ArrayList<ArticuloDTO> result = new ArrayList<>();
+
+		for (Articulo articulo : articuloRepository.findAll()) {
+			ArticuloDTO temp = new ArticuloDTO();
+			
+			if(buscar==true && articulo.isEnLista()==true && articulo.isEsPrima()==true) {
+				temp.setId_articulo(articulo.getId_articulo());
+				temp.setNombre_articulo(articulo.getNombre_articulo());
+				temp.setCosto(articulo.getCosto());
+				temp.setEsPrima(articulo.isEsPrima());
+				temp.setStock(articulo.getStock());
+				temp.setCategoriaProd(articulo.getCategoriaProd());
+				temp.setMedidaProd(articulo.getMedidaProd());
+				temp.setStockMinimo(articulo.getStockMinimo());
+				temp.setEnLista(articulo.isEnLista());
+				temp.setDetalle(articulo.getDetalle());
+				temp.setFoto(articulo.getFoto());
+				temp.setPrecioA(articulo.getPrecioA());
+				
+				result.add(temp);
+			} 
+			else {
+				if(buscar==false && articulo.isEnLista()==false && articulo.isEsPrima()==true) {
+					temp.setId_articulo(articulo.getId_articulo());
+					temp.setNombre_articulo(articulo.getNombre_articulo());
+					temp.setCosto(articulo.getCosto());
+					temp.setEsPrima(articulo.isEsPrima());
+					temp.setStock(articulo.getStock());
+					temp.setCategoriaProd(articulo.getCategoriaProd());
+					temp.setMedidaProd(articulo.getMedidaProd());
+					temp.setStockMinimo(articulo.getStockMinimo());
+					temp.setEnLista(articulo.isEnLista());
+					temp.setDetalle(articulo.getDetalle());
+					temp.setFoto(articulo.getFoto());
+					temp.setPrecioA(articulo.getPrecioA());
+					
+					result.add(temp);
+				}		
+			}				
+		}
+		return result;
+	}	
+	
+	//Método para buscar mercadería vendible (como gaseosas) que están activos en el menú o los anulados
+		//Si "buscar" es true, entonces se traerá los platos que están activos en el menú
+		public ArrayList<ArticuloDTO> getVendibleEnLista(boolean buscar) {
+
+			ArrayList<ArticuloDTO> result = new ArrayList<>();
+
+			for (Articulo articulo : articuloRepository.findAll()) {
+				ArticuloDTO temp = new ArticuloDTO();
+				
+				if(buscar==true && articulo.isEnLista()==true && articulo.isEsPrima()==false) {
+					temp.setId_articulo(articulo.getId_articulo());
+					temp.setNombre_articulo(articulo.getNombre_articulo());
+					temp.setCosto(articulo.getCosto());
+					temp.setEsPrima(articulo.isEsPrima());
+					temp.setStock(articulo.getStock());
+					temp.setCategoriaProd(articulo.getCategoriaProd());
+					temp.setMedidaProd(articulo.getMedidaProd());
+					temp.setStockMinimo(articulo.getStockMinimo());
+					temp.setEnLista(articulo.isEnLista());
+					temp.setDetalle(articulo.getDetalle());
+					temp.setFoto(articulo.getFoto());
+					temp.setPrecioA(articulo.getPrecioA());
+					
+					result.add(temp);
+				}		
+				
+				if(buscar==false && articulo.isEnLista()==false && articulo.isEsPrima()==false) {
+					temp.setId_articulo(articulo.getId_articulo());
+					temp.setNombre_articulo(articulo.getNombre_articulo());
+					temp.setCosto(articulo.getCosto());
+					temp.setEsPrima(articulo.isEsPrima());
+					temp.setStock(articulo.getStock());
+					temp.setCategoriaProd(articulo.getCategoriaProd());
+					temp.setMedidaProd(articulo.getMedidaProd());
+					temp.setStockMinimo(articulo.getStockMinimo());
+					temp.setEnLista(articulo.isEnLista());
+					temp.setDetalle(articulo.getDetalle());
+					temp.setFoto(articulo.getFoto());
+					temp.setPrecioA(articulo.getPrecioA());
+					
+					result.add(temp);
+				}			
+			}
+
+			return result;
+		}	
+	
 
 	@Override
 	public ArticuloDTO getOne(int id) {
@@ -62,16 +155,14 @@ public class ArticuloService implements ObjectService<ArticuloDTO> {
 			result.setCosto(resultBD.getCosto());
 			result.setNombre_articulo(resultBD.getNombre_articulo());
 			result.setStock(resultBD.getStock());
-			result.setEsParaVenta(resultBD.isEsParaVenta());
+			result.setEsPrima(resultBD.isEsPrima());
 			result.setMedidaProd(resultBD.getMedidaProd());
-			result.setCategoriaProd(resultBD.getCategoriaProd());
-			result.setDetFactura(resultBD.getDetFactura());;
-			result.setDetReceta(resultBD.getDetReceta());
+			result.setCategoriaProd(resultBD.getCategoriaProd());			
 			result.setStockMinimo(resultBD.getStockMinimo());
 			result.setEnLista(resultBD.isEnLista());
 			result.setDetalle(resultBD.getDetalle());
 			result.setFoto(resultBD.getFoto());
-			result.setPrecioArticulo(resultBD.getPrecioArticulo());
+			result.setPrecioA(resultBD.getPrecioA());
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -87,17 +178,16 @@ public class ArticuloService implements ObjectService<ArticuloDTO> {
 				guardado.setCosto(t.getCosto());
 				guardado.setStock(t.getStock());
 				guardado.setCategoriaProd(t.getCategoriaProd());
-				guardado.setEsParaVenta(t.isEsParaVenta());
+				guardado.setEsPrima(t.isEsPrima());
 				guardado.setMedidaProd(t.getMedidaProd());
 				guardado.setNombre_articulo(t.getNombre_articulo());
-				guardado.setDetFactura(t.getDetFactura());;
-				guardado.setDetReceta(t.getDetReceta());
 				guardado.setStockMinimo(t.getStockMinimo());
 				guardado.setEnLista(t.isEnLista());
 				guardado.setDetalle(t.getDetalle());
 				guardado.setDetalle(t.getDetalle());
 				guardado.setFoto(t.getFoto());	
-				guardado.setPrecioArticulo(t.getPrecioArticulo());
+				guardado.setPrecioA(t.getPrecioA());
+				
 		try {
 			articuloRepository.save(guardado);
 			t.setId_articulo(guardado.getId_articulo());
@@ -118,17 +208,16 @@ public class ArticuloService implements ObjectService<ArticuloDTO> {
 
 			temp.setCategoriaProd(t.getCategoriaProd());
 			temp.setCosto(t.getCosto());
-			temp.setEsParaVenta(t.isEsParaVenta());
+			temp.setEsPrima(t.isEsPrima());
 			temp.setMedidaProd(t.getMedidaProd());
 			temp.setNombre_articulo(t.getNombre_articulo());
 			temp.setStock(t.getStock());
-			temp.setDetFactura(t.getDetFactura());;
-			temp.setDetReceta(t.getDetReceta());
 			temp.setStockMinimo(t.getStockMinimo());
 			temp.setEnLista(t.isEnLista());
 			temp.setFoto(t.getFoto());
 			temp.setDetalle(t.getDetalle());
-			temp.setPrecioArticulo(t.getPrecioArticulo());
+			temp.setPrecioA(t.getPrecioA());
+			
 		
 			articuloRepository.save(temp);
 			t.setId_articulo(temp.getId_articulo());

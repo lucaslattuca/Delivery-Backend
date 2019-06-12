@@ -35,6 +35,18 @@ public class ArticuloController implements ObjectController<ArticuloDTO>{
 	public ArrayList<ArticuloDTO> getAll() {
 		return ResponseEntity.status(200).body(articuloService.getAll()).getBody();
 	}
+	
+	
+	@GetMapping(path = "/primas/{buscar}")
+	public ArrayList<ArticuloDTO> getInsumoEnLista(@PathVariable boolean buscar) {
+		return ResponseEntity.status(200).body(articuloService.getInsumoEnLista(buscar)).getBody();
+	}
+	
+	
+	@GetMapping(path = "/vendibles/{buscar}")
+	public ArrayList<ArticuloDTO> getVendibleEnLista(@PathVariable boolean buscar) {
+		return ResponseEntity.status(200).body(articuloService.getVendibleEnLista(buscar)).getBody();
+	}
 
 	@Override
 	@GetMapping(path = "/{id}")
@@ -59,6 +71,7 @@ public class ArticuloController implements ObjectController<ArticuloDTO>{
 	public ResponseEntity updateEntity(@RequestBody ArticuloDTO t,@PathVariable  int id) {
 		return ResponseEntity.status(201).body(articuloService.update(t, id));
 	}
+	
 	
 	@Override
 	@DeleteMapping("/{id}")

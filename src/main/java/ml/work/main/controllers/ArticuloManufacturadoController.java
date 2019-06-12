@@ -36,6 +36,10 @@ public class ArticuloManufacturadoController implements ObjectController<Articul
 		return ResponseEntity.status(200).body(articuloManufacturadoService.getAll()).getBody();
 	}
 	
+	@GetMapping(path = "/disponibles/{buscar}")
+	public ArrayList<ArticuloManufacturadoDTO> getEnMenu(@PathVariable boolean buscar) {
+		return ResponseEntity.status(200).body(articuloManufacturadoService.getEnMenu(buscar)).getBody();
+	}	
 	
 	@Override
 	@GetMapping(path = "/{id}")

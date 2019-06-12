@@ -29,17 +29,55 @@ public class ArticuloManufacturadoService implements ObjectService<ArticuloManuf
 			temp.setId_artManuf(manuf.getId_artManuf());
 			temp.setMinutosPrep(manuf.getMinutosPrep());
 			temp.setNombre_articuloM(manuf.getNombre_articuloM());
-			temp.setDetalleRecetas(manuf.getDetalleRecetas());
-			temp.setdFactura(manuf.getdFactura());
 			temp.setEnMenu(manuf.isEnMenu());
 			temp.setCategoriaManuf(manuf.getCategoriaManuf());
 			temp.setDetalle(manuf.getDetalle());
 			temp.setFoto(manuf.getFoto());
-			temp.setPrecioDePlato(manuf.getPrecioDePlato());
+			temp.setPrecioM(manuf.getPrecioM());
 			
 			result.add(temp);
 		}
 
+		return result;
+	}
+	
+	
+//	Método para encontrar platos que están activos en el menú o no.
+//	Con el booleano aviso si quiero los platos del menú o los que están dados de baja
+	public ArrayList<ArticuloManufacturadoDTO> getEnMenu(boolean buscar) { 
+		ArrayList<ArticuloManufacturadoDTO> result = new ArrayList<>();
+
+		for (ArticuloManufacturado manuf : articuloManufacturadoRepository.findAll()) {
+			ArticuloManufacturadoDTO temp = new ArticuloManufacturadoDTO();
+			
+			//si quiero platos del menú, y el artículo iterado cumple con esa condición
+			if(buscar==true && manuf.isEnMenu()==true) {
+				temp.setId_artManuf(manuf.getId_artManuf());
+				temp.setMinutosPrep(manuf.getMinutosPrep());
+				temp.setNombre_articuloM(manuf.getNombre_articuloM());
+				temp.setEnMenu(manuf.isEnMenu());
+				temp.setCategoriaManuf(manuf.getCategoriaManuf());
+				temp.setDetalle(manuf.getDetalle());
+				temp.setFoto(manuf.getFoto());
+				temp.setPrecioM(manuf.getPrecioM());
+				
+				result.add(temp);
+			}
+			
+			//si NO quiero platos del menú, y el artículo iterado cumple con esa condición
+			if (buscar==false && manuf.isEnMenu()==false) {
+				temp.setId_artManuf(manuf.getId_artManuf());
+				temp.setMinutosPrep(manuf.getMinutosPrep());
+				temp.setNombre_articuloM(manuf.getNombre_articuloM());
+				temp.setEnMenu(manuf.isEnMenu());
+				temp.setCategoriaManuf(manuf.getCategoriaManuf());
+				temp.setDetalle(manuf.getDetalle());
+				temp.setFoto(manuf.getFoto());
+				temp.setPrecioM(manuf.getPrecioM());
+				
+				result.add(temp);
+			}				
+		}
 		return result;
 	}
 
@@ -54,14 +92,12 @@ public class ArticuloManufacturadoService implements ObjectService<ArticuloManuf
 
 			result.setId_artManuf(resultBD.getId_artManuf());
 			result.setMinutosPrep(resultBD.getMinutosPrep());
-			result.setNombre_articuloM(resultBD.getNombre_articuloM());
-			result.setDetalleRecetas(resultBD.getDetalleRecetas());
-			result.setdFactura(resultBD.getdFactura());
+			result.setNombre_articuloM(resultBD.getNombre_articuloM());			
 			result.setEnMenu(resultBD.isEnMenu());
 			result.setCategoriaManuf(resultBD.getCategoriaManuf());
 			result.setDetalle(resultBD.getDetalle());
 			result.setFoto(resultBD.getFoto());
-			result.setPrecioDePlato(resultBD.getPrecioDePlato());
+			result.setPrecioM(resultBD.getPrecioM());
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -75,14 +111,12 @@ public class ArticuloManufacturadoService implements ObjectService<ArticuloManuf
 		ArticuloManufacturado guardado = new ArticuloManufacturado();
 
 		guardado.setNombre_articuloM(body.getNombre_articuloM());
-		guardado.setMinutosPrep(body.getMinutosPrep());
-		guardado.setdFactura(body.getdFactura());;
-		guardado.setDetalleRecetas(body.getDetalleRecetas());
+		guardado.setMinutosPrep(body.getMinutosPrep());		
 		guardado.setEnMenu(body.isEnMenu());
 		guardado.setCategoriaManuf(body.getCategoriaManuf());
 		guardado.setDetalle(body.getDetalle());
 		guardado.setFoto(body.getFoto());
-		guardado.setPrecioDePlato(body.getPrecioDePlato());
+		guardado.setPrecioM(body.getPrecioM());
 		
 		try {
 			articuloManufacturadoRepository.save(guardado);
@@ -103,14 +137,12 @@ public class ArticuloManufacturadoService implements ObjectService<ArticuloManuf
 			temp = pOptional.get();
 
 			temp.setNombre_articuloM(t.getNombre_articuloM());
-			temp.setMinutosPrep(t.getMinutosPrep());
-			temp.setdFactura(t.getdFactura());
-			temp.setDetalleRecetas(t.getDetalleRecetas());
+			temp.setMinutosPrep(t.getMinutosPrep());			
 			temp.setEnMenu(t.isEnMenu());
 			temp.setCategoriaManuf(t.getCategoriaManuf());
 			temp.setDetalle(t.getDetalle());
 			temp.setFoto(t.getFoto());
-			temp.setPrecioDePlato(t.getPrecioDePlato());
+			temp.setPrecioM(t.getPrecioM());
 			
 			articuloManufacturadoRepository.save(temp);
 			t.setId_artManuf(temp.getId_artManuf());

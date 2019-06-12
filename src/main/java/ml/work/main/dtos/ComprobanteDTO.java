@@ -9,16 +9,13 @@ public abstract class ComprobanteDTO {
 		
 	protected LocalTime hora;
 		
-	protected String nombre_comprobante;	
-	
 	protected Date fechaAnulado;
 	
 	public ComprobanteDTO() {}
 
-	public ComprobanteDTO(Date fecha, LocalTime hora, String nombre_comprobante, Date fechaAnulado) {		
+	public ComprobanteDTO(Date fecha, LocalTime hora, Date fechaAnulado) {		
 		this.fecha = fecha;
 		this.hora = hora;
-		this.nombre_comprobante = nombre_comprobante;
 		this.fechaAnulado = fechaAnulado;
 	}
 
@@ -36,14 +33,6 @@ public abstract class ComprobanteDTO {
 
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
-	}
-
-	public String getNombre_comprobante() {
-		return nombre_comprobante;
-	}
-
-	public void setNombre_comprobante(String nombre_comprobante) {
-		this.nombre_comprobante = nombre_comprobante;
 	}
 
 	public Date getFechaAnulado() {

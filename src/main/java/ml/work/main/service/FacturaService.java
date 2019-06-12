@@ -32,10 +32,8 @@ public class FacturaService implements ObjectService<FacturaDTO> {
 			temp.setTotal(factura.getTotal());
 			temp.setFecha(factura.getFecha());
 			temp.setHora(factura.getHora());
-			temp.setNombre_comprobante(factura.getNombre_comprobante());
-			temp.setDetalleFactura(factura.getDetalleFactura());
-			temp.setCliente(factura.getCliente());
 			temp.setFechaAnulado(factura.getFechaAnulado());
+			temp.setPedidoConfirmado(factura.getPedidoConfirmado());
 
 			result.add(temp);
 		}
@@ -59,10 +57,9 @@ public class FacturaService implements ObjectService<FacturaDTO> {
 			result.setTotal(resultBD.getTotal());
 			result.setFecha(resultBD.getFecha());
 			result.setHora(resultBD.getHora());
-			result.setNombre_comprobante(resultBD.getNombre_comprobante());
-			result.setCliente(resultBD.getCliente());
 			result.setFechaAnulado(result.getFechaAnulado());
-
+			result.setPedidoConfirmado(result.getPedidoConfirmado());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
@@ -77,11 +74,9 @@ public class FacturaService implements ObjectService<FacturaDTO> {
 		guardado.setFecha(body.getFecha());
 		guardado.setHora(body.getHora());
 		guardado.setEsEfectivo(body.isEsEfectivo());
-		guardado.setNombre_comprobante(body.getNombre_comprobante());
 		guardado.setTotal(body.getTotal());
-		guardado.setDetalleFactura(body.getDetalleFactura());
-		guardado.setCliente(body.getCliente());
 		guardado.setFechaAnulado(body.getFechaAnulado());
+		guardado.setPedidoConfirmado(body.getPedidoConfirmado());
 
 		try {
 			facturaRepository.save(guardado);
@@ -101,14 +96,12 @@ public class FacturaService implements ObjectService<FacturaDTO> {
 		try {
 			temp = pOptional.get();
 
-			temp.setDetalleFactura(t.getDetalleFactura());
 			temp.setFecha(t.getFecha());
 			temp.setHora(t.getHora());
 			temp.setEsEfectivo(t.isEsEfectivo());
-			temp.setNombre_comprobante(t.getNombre_comprobante());
 			temp.setTotal(t.getTotal());
-			temp.setCliente(t.getCliente());
 			temp.setFechaAnulado(t.getFechaAnulado());
+			temp.setPedidoConfirmado(t.getPedidoConfirmado());
 		
 			facturaRepository.save(temp);
 			t.setNumFactura(temp.getNumFactura());

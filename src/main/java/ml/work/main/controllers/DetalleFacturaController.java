@@ -35,6 +35,12 @@ public class DetalleFacturaController implements ObjectController<DetalleFactura
 	public ArrayList<DetalleFacturaDTO> getAll() {
 		return ResponseEntity.status(200).body(detalleFacturaService.getAll()).getBody();
 	}
+	
+	@GetMapping(path="/porPedido/{idPedido}")
+	public ArrayList<DetalleFacturaDTO> getXPedido(@PathVariable int idPedido) {
+		return ResponseEntity.status(200).body(detalleFacturaService.getXPedido(idPedido)).getBody();
+	}
+
 
 	@Override
 	@GetMapping(path = "/{id}")

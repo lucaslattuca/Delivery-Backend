@@ -1,2 +1,0 @@
-# Delivery-Backend
-Spring

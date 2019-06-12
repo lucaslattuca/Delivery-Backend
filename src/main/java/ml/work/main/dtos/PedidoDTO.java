@@ -2,27 +2,34 @@ package ml.work.main.dtos;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.time.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import ml.work.main.entities.DetalleFactura;
+import ml.work.main.entities.Cliente;
+
+import java.time.*;
 
 public class PedidoDTO extends ComprobanteDTO implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private int numPedido;
 	private float total;
-	private List <DetalleFactura> detallePedido= new ArrayList<DetalleFactura>();
+	private String observaciones;
+	private boolean estadoListo;
+	private String nombreTemporal;
+	private Cliente cliente;
 	
 	public PedidoDTO() {
 		super();
 	}
 	
-	public PedidoDTO(Date fecha, LocalTime hora, String nombre_comprobante, int numPedido, float total, List<DetalleFactura> detallePedido, Date fechaAnulado) {
-		super(fecha, hora, nombre_comprobante, fechaAnulado);
+	public PedidoDTO(Date fecha, LocalTime hora, Cliente cliente, int numPedido, String nombreTemporal, 
+			boolean estadoListo, float total, Date fechaAnulado, String observaciones) {
+		super(fecha, hora, fechaAnulado);
 		this.numPedido = numPedido;
 		this.total = total;
-		this.detallePedido = detallePedido;
+		this.observaciones = observaciones;
+		this.cliente = cliente;
+		this.nombreTemporal = nombreTemporal;
+		this.estadoListo = estadoListo;
 	}
 
 	public int getNumPedido() {
@@ -41,36 +48,35 @@ public class PedidoDTO extends ComprobanteDTO implements Serializable{
 		this.total = total;
 	}
 
-	public List<DetalleFactura> getDetallePedido() {
-		return detallePedido;
+	public String getObservaciones() {
+		return observaciones;
 	}
 
-	public void setDetallePedido(List<DetalleFactura> detallePedido) {
-		this.detallePedido = detallePedido;
-	} 
-	
-	public Date getFecha() {
-		return fecha;
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public LocalTime getHora() {
-		return hora;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
-	public void setHora(LocalTime hora) {
-		this.hora = hora;
+	public boolean isEstadoListo() {
+		return estadoListo;
 	}
 
-	public String getNombre_comprobante() {
-		return nombre_comprobante;
+	public void setEstadoListo(boolean estadoListo) {
+		this.estadoListo = estadoListo;
 	}
 
-	public void setNombre_comprobante(String nombre_comprobante) {
-		this.nombre_comprobante = nombre_comprobante;
+	public String getNombreTemporal() {
+		return nombreTemporal;
 	}
 
+	public void setNombreTemporal(String nombreTemporal) {
+		this.nombreTemporal = nombreTemporal;
+	}			
 }
