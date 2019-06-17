@@ -16,13 +16,15 @@ public class PedidoDTO extends ComprobanteDTO implements Serializable{
 	private boolean estadoListo;
 	private String nombreTemporal;
 	private Cliente cliente;
+	private String informe;
+	private float demora;
 	
 	public PedidoDTO() {
 		super();
 	}
 	
 	public PedidoDTO(Date fecha, LocalTime hora, Cliente cliente, int numPedido, String nombreTemporal, 
-			boolean estadoListo, float total, Date fechaAnulado, String observaciones) {
+			boolean estadoListo, float total, Date fechaAnulado, String observaciones, String informe, float demora) {
 		super(fecha, hora, fechaAnulado);
 		this.numPedido = numPedido;
 		this.total = total;
@@ -30,6 +32,8 @@ public class PedidoDTO extends ComprobanteDTO implements Serializable{
 		this.cliente = cliente;
 		this.nombreTemporal = nombreTemporal;
 		this.estadoListo = estadoListo;
+		this.informe = informe;
+		this.demora = demora;
 	}
 
 	public int getNumPedido() {
@@ -78,5 +82,21 @@ public class PedidoDTO extends ComprobanteDTO implements Serializable{
 
 	public void setNombreTemporal(String nombreTemporal) {
 		this.nombreTemporal = nombreTemporal;
-	}			
+	}
+
+	public String getInforme() {
+		return informe;
+	}
+
+	public void setInforme(String informe) {
+		this.informe = informe;
+	}
+
+	public float getDemora() {
+		return demora;
+	}
+
+	public void setDemora(float demora) {
+		this.demora = demora;
+	}		
 }

@@ -182,7 +182,7 @@ public class ArticuloService implements ObjectService<ArticuloDTO> {
 				guardado.setMedidaProd(t.getMedidaProd());
 				guardado.setNombre_articulo(t.getNombre_articulo());
 				guardado.setStockMinimo(t.getStockMinimo());
-				guardado.setEnLista(t.isEnLista());
+				guardado.setEnLista(true);
 				guardado.setDetalle(t.getDetalle());
 				guardado.setDetalle(t.getDetalle());
 				guardado.setFoto(t.getFoto());	

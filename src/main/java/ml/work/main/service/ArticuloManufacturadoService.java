@@ -112,7 +112,7 @@ public class ArticuloManufacturadoService implements ObjectService<ArticuloManuf
 
 		guardado.setNombre_articuloM(body.getNombre_articuloM());
 		guardado.setMinutosPrep(body.getMinutosPrep());		
-		guardado.setEnMenu(body.isEnMenu());
+		guardado.setEnMenu(true);
 		guardado.setCategoriaManuf(body.getCategoriaManuf());
 		guardado.setDetalle(body.getDetalle());
 		guardado.setFoto(body.getFoto());

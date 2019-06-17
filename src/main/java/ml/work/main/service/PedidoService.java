@@ -6,16 +6,21 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import ml.work.main.dtos.PedidoDTO;
+import ml.work.main.entities.DetalleFactura;
 import ml.work.main.entities.Pedido;
+import ml.work.main.repositories.DetalleFacturaRepository;
 import ml.work.main.repositories.PedidoRepository;
 
 @Service
 public class PedidoService implements ObjectService<PedidoDTO> {
 
 	private PedidoRepository pedidoRepository;
+	private DetalleFacturaRepository detalleFacturaRepository;
+	
 
-	public PedidoService(PedidoRepository pedidoRepository) {
+	public PedidoService(PedidoRepository pedidoRepository, DetalleFacturaRepository detalleFacturaRepository) {
 		this.pedidoRepository = pedidoRepository;
+		this.detalleFacturaRepository = detalleFacturaRepository;
 	}
 	
 	@Override
@@ -35,13 +40,28 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			temp.setCliente(pedido.getCliente());
 			temp.setEstadoListo(pedido.isEstadoListo());
 			temp.setNombreTemporal(pedido.getNombreTemporal());
+			temp.setDemora(pedido.getDemora());
+			
+			//Para traer todos los detalles del pedido en formato String
+			String frase = "";		
+			
+			for (DetalleFactura detFactura : detalleFacturaRepository.findAll()) {
+				if(detFactura.getPedido().getNumPedido() == pedido.getNumPedido()) {
+					if(detFactura.getManufacturado() != null) {
+						frase += detFactura.getCantidad()+" x "+detFactura.getManufacturado().getNombre_articuloM()+"\n";
+					}else {
+						frase += detFactura.getCantidad()+" x "+detFactura.getItem().getNombre_articulo()+"\n";
+					}					 
+				}
+			}
+			
+			temp.setInforme(frase);
 
 			result.add(temp);
 		}
-
-		return result;
-				
+		return result;				
 	}
+	
 
 	@Override
 	public PedidoDTO getOne(int id) {		
@@ -62,6 +82,7 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			result.setCliente(resultBD.getCliente());
 			result.setEstadoListo(resultBD.isEstadoListo());
 			result.setNombreTemporal(resultBD.getNombreTemporal());
+			result.setDemora(resultBD.getDemora());
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -81,7 +102,8 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 		guardado.setObservaciones(body.getObservaciones());
 		guardado.setCliente(body.getCliente());
 		guardado.setNombreTemporal(body.getNombreTemporal());
-		guardado.setEstadoListo(body.isEstadoListo());
+		guardado.setEstadoListo(false);
+		guardado.setDemora(0);
 
 		try {
 			pedidoRepository.save(guardado);
@@ -109,6 +131,7 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			temp.setCliente(t.getCliente());
 			temp.setNombreTemporal(t.getNombreTemporal());
 			temp.setEstadoListo(t.isEstadoListo());
+			temp.setDemora(t.getDemora());
 		
 			pedidoRepository.save(temp);
 			t.setNumPedido(temp.getNumPedido());

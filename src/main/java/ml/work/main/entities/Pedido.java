@@ -35,6 +35,9 @@ public class Pedido extends Comprobantes{
 	@Column(name = "pedido_estadoListo")
 	private boolean estadoListo;
 	
+	@Column(name = "pedido_demora")
+	private float demora;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_comprador")	
 	private Cliente cliente;
@@ -48,7 +51,7 @@ public class Pedido extends Comprobantes{
 	}
 
 	public Pedido(Date fecha, LocalTime hora, Factura factura, String observaciones, String nombreTemporal,
-			int numPedido, float total, Cliente cliente, Date fechaAnulado, boolean estadoListo) {
+			int numPedido, float total, Cliente cliente, Date fechaAnulado, boolean estadoListo, float demora) {
 		super(fecha, hora, fechaAnulado);
 		this.numPedido = numPedido;
 		this.total = total;
@@ -56,6 +59,7 @@ public class Pedido extends Comprobantes{
 		this.observaciones = observaciones;
 		this.nombreTemporal = nombreTemporal;
 		this.estadoListo = estadoListo;
+		this.demora = demora;
 	}
 
 	public int getNumPedido() {
@@ -104,6 +108,13 @@ public class Pedido extends Comprobantes{
 
 	public void setEstadoListo(boolean estadoListo) {
 		this.estadoListo = estadoListo;
-	}			
-	
+	}
+
+	public float getDemora() {
+		return demora;
+	}
+
+	public void setDemora(float demora) {
+		this.demora = demora;
+	}				
 }
